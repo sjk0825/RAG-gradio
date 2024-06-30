@@ -1,7 +1,7 @@
 ## RAG gradio
 HR RAG chat
 
-# TODO
+### TODO
 - ctransformer AutoCaualLM quantization version
 - vector DB to file
 
