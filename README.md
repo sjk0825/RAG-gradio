@@ -6,9 +6,13 @@ HR RAG chat
 - vector DB to file
 
 ## reference
+RAG
+- https://github.com/sjk0825/RAG-retrieval-ranking-resource
+
 model
 - https://github.com/eugeneyan/open-llms 
 - https://chat.lmsys.org/
+- https://huggingface.co/PawanKrd/Meta-Llama-3-8B-Instruct-GGUF
 
 programming
 - https://github.com/Niez-Gharbi/PDF-RAG-with-Llama2-and-Gradio
