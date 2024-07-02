@@ -2,8 +2,8 @@
 HR RAG chat
 
 ### TODO
-- ctransformer AutoCaualLM quantization version
-- vector DB to file
+- [x] ctransformer AutoCaualLM quantization version
+- [ ] vector DB to file
 
 ## reference
 RAG
