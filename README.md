@@ -1,9 +1,12 @@
 ## RAG gradio
-HR RAG chat
+Find Profitable Products to Sell on e-commerce
+사용자: MD, e-commerce seller
 
 ### TODO
 - [x] ctransformer AutoCaualLM quantization version
+- [ ] add function & model (forecast prediction)
 - [ ] vector DB to file
+- [ ] e-commrece cycle refer git check
 
 ## reference
 RAG
@@ -26,6 +29,11 @@ programming
 - https://www.gradio.app/docs/gradio/chatbot
 - https://github.com/nsrinidhibhat/gradio_RAG 
 - https://wikidocs.net/234094 
+
+e-commerce
+- https://www.reddit.com/r/digimarketeronline/comments/1bvd64q/how_to_select_products_for_amazon/ 
+- https://memopan.io/d/pro/intro?gad_source=1&gclid=EAIaIQobChMImZLBuvyJhwMVm88WBR1d8Qg8EAAYASAAEgLSY_D_BwE
+
 
 ## License
 This project is licensed under the [Apache License 2.0](https://github.com/Niez-Gharbi/PDF-RAG-with-Llama2-and-Gradio/blob/main/LICENSE).

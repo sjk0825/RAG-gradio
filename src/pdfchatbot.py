@@ -26,6 +26,7 @@ class PDFChatBot:
         self.config = self.load_config(config_path)
         # Initialize other attributes to None
         self.prompt = None
+        self.forecast = None
         self.documents = None
         self.embeddings = None
         self.vectordb = None
@@ -90,6 +91,7 @@ class PDFChatBot:
         Load the vector database from the documents and embeddings.
         """
         self.vectordb = Chroma.from_documents(self.documents, self.embeddings)
+        # TODO load forecast
 
     def load_tokenizer(self):
         """
@@ -133,7 +135,7 @@ class PDFChatBot:
             return_source_documents=True
         )
 
-    def process_file(self, file):
+    def process_file(self, file, process_file):
         """
         Process the uploaded PDF file and initialize necessary components: Tokenizer, VectorDB and LLM.
 
@@ -141,7 +143,9 @@ class PDFChatBot:
             file (FileStorage): The uploaded PDF file.
         """
         self.create_prompt_template()
+        self.time_series = None
         self.documents = PyPDFLoader(file.name).load()
+        # TODO process predictio models
         self.load_embeddings()
         self.load_vectordb()
         self.load_model()
@@ -149,7 +153,7 @@ class PDFChatBot:
         self.create_pipeline()
         self.create_chain()
 
-    def generate_response(self, history, query, file):
+    def generate_response(self, history, query, file, file_time_series):
         """
         Generate a response based on user query and chat history.
 
@@ -157,6 +161,7 @@ class PDFChatBot:
             history (list): List of chat history tuples.
             query (str): User's query.
             file (FileStorage): The uploaded PDF file.
+            file_time_series (FileStorage): The uploaded time-series data
 
         Returns:
             tuple: Updated chat history and a space.
@@ -166,7 +171,7 @@ class PDFChatBot:
         if not file:
             raise gr.Error(message='Upload a PDF')
         if not self.processed:
-            self.process_file(file)
+            self.process_file(file, file_time_series)
             self.processed = True
 
         result = self.chain({"question": query, 'chat_history': self.chat_history}, return_only_outputs=True)
@@ -192,3 +197,4 @@ class PDFChatBot:
         pix = page.get_pixmap(matrix=fitz.Matrix(300 / 72, 300 / 72))
         image = Image.frombytes('RGB', [pix.width, pix.height], pix.samples)
         return image
+    
