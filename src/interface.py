@@ -22,13 +22,10 @@ def create_demo():
 
             with gr.Column(scale=0.20):
                 uploaded_pdf = gr.UploadButton("📁 Upload PDF", file_types=[".pdf"])
-            
-            with gr.Column(scale=0.20):
-                uploaded_timeseries = gr.UploadButton("Upload time-series info")
 
-        return demo, chat_history, show_img, text_input, submit_button, uploaded_pdf, uploaded_timeseries
+        return demo, chat_history, show_img, text_input, submit_button, uploaded_pdf
 
 if __name__ == '__main__':
-    demo, chatbot, show_img, text_input, submit_button, uploaded_pdf, uploaded_timeseries = create_demo()
+    demo, chatbot, show_img, text_input, submit_button, uploaded_pdf = create_demo()
     demo.queue()
     demo.launch()

@@ -2,6 +2,8 @@ import yaml
 import fitz
 import torch
 import gradio as gr
+import csv
+import json
 from PIL import Image
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
@@ -26,7 +28,7 @@ class PDFChatBot:
         self.config = self.load_config(config_path)
         # Initialize other attributes to None
         self.prompt = None
-        self.forecast = None
+        self.predictions = None
         self.documents = None
         self.embeddings = None
         self.vectordb = None
@@ -91,7 +93,8 @@ class PDFChatBot:
         Load the vector database from the documents and embeddings.
         """
         self.vectordb = Chroma.from_documents(self.documents, self.embeddings)
-        # TODO load forecast
+        # TODO documents setting 
+        # https://stackoverflow.com/questions/76650513/dynamically-add-more-embedding-of-new-document-in-chroma-db-langchain
 
     def load_tokenizer(self):
         """
@@ -135,7 +138,7 @@ class PDFChatBot:
             return_source_documents=True
         )
 
-    def process_file(self, file, process_file):
+    def process_file(self, file):
         """
         Process the uploaded PDF file and initialize necessary components: Tokenizer, VectorDB and LLM.
 
@@ -143,8 +146,8 @@ class PDFChatBot:
             file (FileStorage): The uploaded PDF file.
         """
         self.create_prompt_template()
-        self.time_series = None
         self.documents = PyPDFLoader(file.name).load()
+        self.predict_timeseries()
         # TODO process predictio models
         self.load_embeddings()
         self.load_vectordb()
@@ -153,7 +156,7 @@ class PDFChatBot:
         self.create_pipeline()
         self.create_chain()
 
-    def generate_response(self, history, query, file, file_time_series):
+    def generate_response(self, history, query, file):
         """
         Generate a response based on user query and chat history.
 
@@ -161,7 +164,6 @@ class PDFChatBot:
             history (list): List of chat history tuples.
             query (str): User's query.
             file (FileStorage): The uploaded PDF file.
-            file_time_series (FileStorage): The uploaded time-series data
 
         Returns:
             tuple: Updated chat history and a space.
@@ -171,7 +173,7 @@ class PDFChatBot:
         if not file:
             raise gr.Error(message='Upload a PDF')
         if not self.processed:
-            self.process_file(file, file_time_series)
+            self.process_file(file)
             self.processed = True
 
         result = self.chain({"question": query, 'chat_history': self.chat_history}, return_only_outputs=True)
@@ -198,3 +200,20 @@ class PDFChatBot:
         image = Image.frombytes('RGB', [pix.width, pix.height], pix.samples)
         return image
     
+
+    def predict_timeseries(self):
+        """
+        get current inventory prediction from prediction server
+
+        Returns:
+            list: predicted time-series data
+        """
+
+        '''
+        url = self.config.get("flask") + '/predict'
+        data = {"test":"test"}
+        response = gr.Interface.post(url,data=data)
+        '''
+        self.predictions = ["text"] # response
+
+        
