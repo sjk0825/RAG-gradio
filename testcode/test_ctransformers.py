@@ -2,9 +2,22 @@ from ctransformers import AutoModelForCausalLM
 from transformers import pipeline, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained(
+    "microsoft/Phi-3-mini-4k-instruct-gguf", 
+    model_file="Phi-3-mini-4k-instruct-q4.gguf",
+    gpu_layers=0,
+    hf=True)
+
+tokenizer = AutoTokenizer.from_pretrained("microsoft/Phi-3-mini-4k-instruct-gguf")
+
+
+pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+print(pipe("AI is going to", max_new_tokens=256))
+raise Exception
+
+
+model = AutoModelForCausalLM.from_pretrained(
     "PawanKrd/Llama-3-8B-Instruct-GGUF", 
     model_file="llama-3-8b-instruct.Q4_K_M.gguf",
-    model_type="llama",
     gpu_layers=0,
     hf=True)
 
@@ -30,7 +43,6 @@ llm = AutoModelForCausalLM.from_pretrained(
     model_type="llama",
     gpu_layers=0)
 
-tokenizer = meta-llama/Meta-Llama-3-8B
 
 print(llm("AI is going to"))
 

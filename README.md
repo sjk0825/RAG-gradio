@@ -4,9 +4,9 @@ Find Profitable Products to Sell on e-commerce
 
 ### TODO
 - [x] ctransformer AutoCaualLM quantization version
-- [ ] add function & model (forecast prediction)
+- [ ] llama cpp to pipeline
 - [ ] vector DB to file
-- [ ] e-commrece cycle refer git check
+- [ ] LoRA cpu train
 
 ## reference
 RAG
@@ -18,6 +18,7 @@ model
 - https://huggingface.co/PawanKrd/Meta-Llama-3-8B-Instruct-GGUF
 - https://huggingface.co/QuantFactory/Meta-Llama-3-8B-GGUF
 - https://huggingface.co/TheBloke/Llama-2-7B-GGUF 
+- https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf
 
 Quantization
 - https://www.reddit.com/r/LocalLLaMA/comments/14gjz8h/i_have_multiple_doubts_about_kquant_models_and/ 
@@ -29,6 +30,7 @@ programming
 - https://www.gradio.app/docs/gradio/chatbot
 - https://github.com/nsrinidhibhat/gradio_RAG 
 - https://wikidocs.net/234094 
+- https://github.com/ggerganov/llama.cpp
 
 e-commerce
 - https://www.reddit.com/r/digimarketeronline/comments/1bvd64q/how_to_select_products_for_amazon/ 

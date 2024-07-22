@@ -75,6 +75,7 @@ class PDFChatBot:
         """
         Create a prompt template for the chatbot.
         """
+
         template = (
             f"The assistant should provide detailed explanations."
             "Combine the chat history and follow up question into "
